@@ -16,7 +16,7 @@ namespace ADO
 			Console.WriteLine(connection_string);
 			connection= new SqlConnection(connection_string);
 
-			string cmd = "SELECT * FROM Directors";
+			string cmd = "SELECT last_name , first_name FROM Directors";
 			Select(cmd);
 			Console.WriteLine($"Количество записей: {Scalar("SELECT COUNT(*) FROM Directors")}");
 			Select("SELECT * FROM Movies");
@@ -26,12 +26,28 @@ namespace ADO
 			SqlCommand command = new SqlCommand(cmd, connection);
 			connection.Open();
 			SqlDataReader reader = command.ExecuteReader();
+
+			//определяем максимальный размер данных в каждом поле таблицы
+			int[] string_sizes = new int[reader.FieldCount];
+			while(reader.Read())
+			{
+				for(int i=0;i<reader.FieldCount;i++)
+				{
+					if (reader[i].ToString().Length > string_sizes[i]) string_sizes[i]=reader[i].ToString().Length+1;
+				}
+			}
+			reader.Close();
+
+			reader = command.ExecuteReader();
 			for (int i = 0; i < reader.FieldCount; i++)
-				Console.Write($"{reader.GetName(i)}\t");
+				Console.Write($"{reader.GetName(i).PadRight(string_sizes[i])}\t");
 			Console.WriteLine();
 			while (reader.Read())
 			{
-				Console.WriteLine($"{reader[0]}\t{reader[1]}\t{reader[2]}");
+				//Console.WriteLine($"{reader[0]}\t{reader[1]}\t{reader[2]}");
+				for (int i = 0; i < reader.FieldCount; i++)
+					Console.Write(reader[i].ToString().PadRight(string_sizes[i]) + "\t");
+				Console.WriteLine();
 			}
 			reader.Close();
 			connection.Close();

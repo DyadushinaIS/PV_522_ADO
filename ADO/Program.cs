@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Runtime.InteropServices;
 
+using System.Configuration;
+
+
 namespace ADO
 {
 	internal class Program
@@ -13,7 +16,8 @@ namespace ADO
 		
 		static void Main(string[] args)
 		{
-			string connection_string = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Movies_PV_522;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+			//string connection_string = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Movies_PV_522;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+			string connection_string = ConfigurationManager.ConnectionStrings["Movies"].ConnectionString;
 			Connector connector=new Connector(connection_string);
 
 			connector.Select("SELECT * FROM Directors");

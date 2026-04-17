@@ -192,7 +192,7 @@
 			// 
 			this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
 			this.buttonOK.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.buttonOK.Location = new System.Drawing.Point(246, 319);
+			this.buttonOK.Location = new System.Drawing.Point(246, 368);
 			this.buttonOK.Name = "buttonOK";
 			this.buttonOK.Size = new System.Drawing.Size(188, 33);
 			this.buttonOK.TabIndex = 14;
@@ -204,7 +204,7 @@
 			// 
 			this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.buttonCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.buttonCancel.Location = new System.Drawing.Point(440, 319);
+			this.buttonCancel.Location = new System.Drawing.Point(440, 368);
 			this.buttonCancel.Name = "buttonCancel";
 			this.buttonCancel.Size = new System.Drawing.Size(188, 33);
 			this.buttonCancel.TabIndex = 15;
@@ -224,7 +224,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(645, 364);
+			this.ClientSize = new System.Drawing.Size(645, 413);
 			this.Controls.Add(this.labelID);
 			this.Controls.Add(this.buttonCancel);
 			this.Controls.Add(this.buttonOK);
@@ -247,7 +247,6 @@
 			this.MinimizeBox = false;
 			this.Name = "HumanForm";
 			this.Text = "HumanForm";
-			this.Load += new System.EventHandler(this.HumanForm_Load);
 			((System.ComponentModel.ISupportInitialize)(this.pictureBoxPhoto)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
@@ -256,22 +255,22 @@
 
 		#endregion
 
-		protected System.Windows.Forms.Label labelLastName;
-		protected System.Windows.Forms.Label labelFirstName;
-		protected System.Windows.Forms.Label labelMiddleName;
-		protected System.Windows.Forms.Label labelBirthDate;
-		protected System.Windows.Forms.Label labelEmail;
-		protected System.Windows.Forms.Label labelPhone;
-		protected System.Windows.Forms.TextBox textBoxLastName;
-		protected System.Windows.Forms.TextBox textBoxFirstName;
-		protected System.Windows.Forms.TextBox textBoxMiddleName;
-		protected System.Windows.Forms.TextBox textBoxEmail;
-		protected System.Windows.Forms.TextBox textBoxPhone;
-		protected System.Windows.Forms.DateTimePicker dtpBirthDate;
-		protected System.Windows.Forms.PictureBox pictureBoxPhoto;
-		protected System.Windows.Forms.Button buttonBrowse;
-		protected System.Windows.Forms.Button buttonOK;
-		protected System.Windows.Forms.Button buttonCancel;
-		protected System.Windows.Forms.Label labelID;
+		private System.Windows.Forms.Label labelLastName;
+		private System.Windows.Forms.Label labelFirstName;
+		private System.Windows.Forms.Label labelMiddleName;
+		private System.Windows.Forms.Label labelBirthDate;
+		private System.Windows.Forms.Label labelEmail;
+		private System.Windows.Forms.Label labelPhone;
+		private System.Windows.Forms.TextBox textBoxLastName;
+		private System.Windows.Forms.TextBox textBoxFirstName;
+		private System.Windows.Forms.TextBox textBoxMiddleName;
+		private System.Windows.Forms.TextBox textBoxEmail;
+		private System.Windows.Forms.TextBox textBoxPhone;
+		private System.Windows.Forms.DateTimePicker dtpBirthDate;
+		private System.Windows.Forms.PictureBox pictureBoxPhoto;
+		private System.Windows.Forms.Button buttonBrowse;
+		private System.Windows.Forms.Button buttonOK;
+		private System.Windows.Forms.Button buttonCancel;
+		private System.Windows.Forms.Label labelID;
 	}
 }

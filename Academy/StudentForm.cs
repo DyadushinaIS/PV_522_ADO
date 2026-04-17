@@ -13,7 +13,6 @@ namespace Academy
 	public partial class StudentForm : HumanForm
 	{
 		Models.Student student;
-		private int? editingStudentId = null;
 		public StudentForm()
 		{
 			InitializeComponent();
@@ -21,55 +20,35 @@ namespace Academy
 			cbStudentsGroup.DisplayMember = "group_name";
 			cbStudentsGroup.ValueMember = "group_id";
 		}
-		//конструктор, принимает ID, которе мы выбираем в обработчике события DoubleClick
-		public StudentForm(int studentId) : this()  // : this() сначала вызов конструкторf без параметров
+		public StudentForm(int id) : this()
 		{
-			editingStudentId = studentId; 
-			this.Text = "Редактирование студента";  // смена заголовка у окна
-
-			string query = $@"
-            SELECT last_name, first_name, middle_name, birth_date, [group]
-            FROM Students
-            WHERE stud_id = {editingStudentId.Value}";
-
-			DataTable dt = DataBase.Connector.Load(query);
-
-			if (dt.Rows.Count > 0)
-			{
-				DataRow row = dt.Rows[0];
-
-				textBoxLastName.Text = row["last_name"].ToString();
-				textBoxFirstName.Text = row["first_name"].ToString();
-				textBoxMiddleName.Text = row["middle_name"].ToString();
-				dtpBirthDate.Value = Convert.ToDateTime(row["birth_date"]);
-				cbStudentsGroup.SelectedValue = Convert.ToInt32(row["group"]);
-			}
+			DataTable table = DataBase.Connector.Load($"SELECT * FROM Students WHERE stud_id={id}");
+			student = new Models.Student(table.Rows[0].ItemArray);
+			human = student;
+			Extract();
 		}
-
+		protected override void Extract()
+		{
+			base.Extract();
+			cbStudentsGroup.SelectedValue = Convert.ToInt32(student.group);
+		}
 		protected override void buttonOK_Click(object sender, EventArgs e)
 		{
 			base.buttonOK_Click(sender, e);
-			
-			if (editingStudentId == null)   //если ID пустое, то вставляем нового студента
-			{
-				student = new Models.Student(human, (int)cbStudentsGroup.SelectedValue);
-				student.id =
-				Convert.ToInt32
+			student = new Models.Student(human, (int)cbStudentsGroup.SelectedValue);
+			if (student.id == 0) student.id =
+			Convert.ToInt32
+			(
+DataBase.Connector.Scalar
+($"INSERT Students({student.GetNames()}) VALUES ({student.GetValues()});SELECT SCOPE_IDENTITY();")
+			);
+			else DataBase.Connector.Update
 				(
-	DataBase.Connector.Scalar
-	($"INSERT Students({student.GetNames()}) VALUES ({student.GetValues()});SELECT SCOPE_IDENTITY();")
+				$"UPDATE Students SET {student.GetUpdateString()} WHERE stud_id={student.id}"
 				);
-			}
-			else
-			{
-				student = new Models.Student(human, (int)cbStudentsGroup.SelectedValue);
-				student.id = editingStudentId.Value;
-				
-				DataBase.Connector.Update
-					(
-					$"UPDATE Students SET {student.GetUpdateString()} WHERE stud_id = {student.id}"
-					);
-			}
+			//string Hello = "Hello";
+			//Hello;
+			//"Hello";
 		}
 	}
 }

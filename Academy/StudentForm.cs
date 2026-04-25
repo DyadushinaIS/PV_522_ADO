@@ -46,9 +46,8 @@ DataBase.Connector.Scalar
 				(
 				$"UPDATE Students SET {student.GetUpdateString()} WHERE stud_id={student.id}"
 				);
-			//string Hello = "Hello";
-			//Hello;
-			//"Hello";
+			if (pictureBoxPhoto.Image != null)
+				DataBase.Connector.UploadPhoto(student.SerializePhoto(), student.id, "photo", "Students");
 		}
 	}
 }

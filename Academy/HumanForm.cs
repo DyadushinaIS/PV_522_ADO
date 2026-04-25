@@ -45,5 +45,24 @@ namespace Academy
 		{
 			Compress();
 		}
-	}
+
+        private void buttonBrowse_Click(object sender, EventArgs e)
+        {
+			OpenFileDialog dialog=new OpenFileDialog();   //открываем окно диалога				
+			dialog.Filter =								 //настраиваем фильтры, котоые будут отображать нужные типы файлов
+"JPG files(*.jpg)|*.jpg|PNG files(*.png)|*.png|All image files|*.png;*.jpg|All files (*.*)|*.*";
+            /*
+			---------------------------------------------------------------------------------
+			фильтр это самая обычная строка, составленная по определенным правилам:
+			Описание1|*.ext1;*.ext2;...,*.ext3|Описание2|*.ext1;*.ext2;...,*.ext3|...ОписаниеN|*.ext1;*.ext2;...,*.ext3|
+			.ext - extantion (расширение имени файла)
+			---------------------------------------------------------------------------------
+			 */
+
+			//проверяем, если пользователь нажал OK, то загружаем файл в окно
+            if (dialog.ShowDialog() == DialogResult.OK)
+				pictureBoxPhoto.Image=Image.FromFile(dialog.FileName);
+
+        }
+    }
 }
